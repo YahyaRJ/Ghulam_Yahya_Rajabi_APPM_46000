@@ -1,0 +1,126 @@
+Exercise 1
+
+f(x) = x^2(x-1)
+
+a) (0.5,2)
+code:
+f = lambda x: x**2 * (x - 1)
+a = 0.5
+b = 2
+Nmax = 100
+tol = 1e-8
+[astar, ier] = bisection(f, a, b, tol, Nmax)
+print('The approximate root is', astar)
+print('Error message:', ier)
+print('f(astar) = ', f(astar))
+
+output:
+The approximate root is 0.9999999981373549
+Error message: 0
+f(astar) =  -1.8626451422920631e-09
+
+b) (-1,0.5)
+code: just changed interval
+
+output:
+The approximate root is -1
+Error message: 1
+f(astar) =  -2
+
+c)(-1,2)
+code: just changed interval
+
+output:
+The approximate root is 0.9999999981373549
+Error message: 0
+f(astar) =  -1.8626451422920631e-09
+
+endpoints of -1 and 0.5 didn't work because both resulted in a negative
+function value, which causes the bisection method to fail. Bisection can't 
+guarantee that a root is in that interval by IVT. 
+The algorithm would not be able to find x=0 as a root because it is an even root and 
+does not change signs around zero
+
+
+Exercise 2
+
+a) 
+code:
+f = lambda x: (x-1) * (x-3) * (x - 5)
+a = 0
+b = 2.4
+Nmax = 100
+tol = 1e-5
+[astar, ier] = bisection(f, a, b, tol, Nmax)
+print('The approximate root is', astar)
+print('Error message:', ier)
+print('f(astar) = ', f(astar))
+
+output:
+The approximate root is 0.9999938964843749
+Error message: 0
+f(astar) =  -4.882834851871111e-05
+
+b)
+code: similar to above, just changed interval
+
+output:
+The approximate root is 0
+Error message: 1
+f(astar) =  -3
+
+c)
+code: similar to above, just changed interval
+
+output 1:
+The approximate root is 0
+Error message: 0
+f(astar) =  0.0
+
+output 2:
+The approximate root is 0.5
+Error message: 1
+f(astar) =  0.479425538604203
+
+for parts a and c, the method successfuly found the root. the
+behaviors are expected. for parts b and d, the bisection method failed
+to find a root within the specified time interval. 
+not really successful or the desired accuracy was achieved, therefore.
+
+
+Exercise 3
+
+a)
+code: 
+f_a = lambda x: x * (1 + ((7 - x**5) / x**2))**3
+f_b = lambda x: x - ((x**5 - 7) / x**2)
+f_c = lambda x: x - ((x**5 - 7) / (5 * x**4))
+f_d = lambda x: x - ((x**5 - 7) / 12)
+fixed_point = 7**(1/5)
+tol = 1e-10
+Nmax = 100
+x0 = 1
+[xstar,ier] = fixedpt(f_d,x0,tol,Nmax)
+print('the approximate fixed point is:',xstar)
+print('f(xstar):',f_d(xstar))
+print('Error message reads:',ier)
+
+output:
+OverflowError: (34, 'Result too large')
+
+b)
+OverflowError: (34, 'Result too large')
+
+c)
+the approximate fixed point is: 1.475773161594552
+f(xstar): 1.4757731615945522
+Error message reads: 0
+
+d)
+the approximate fixed point is: 1.4735780454667078
+f(xstar): 1.4779035096682076
+Error message reads: 1
+
+algorithm only worked for parts c and d. for the other two, the values
+involved in the calculation became too large to be represented as floating
+point numbers. The iteration diverged or extremely large numbers were generated.
