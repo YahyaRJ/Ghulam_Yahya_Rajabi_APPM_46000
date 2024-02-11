@@ -1,0 +1,56 @@
+import numpy as np
+    
+# Define routines
+def fixedpt(f, x0, tol, Nmax):
+    ''' 
+    f = function for which fixed point is sought
+    x0 = initial guess
+    Nmax = max number of iterations
+    tol = stopping tolerance
+    '''
+    count = 0
+    while (count < Nmax):
+        count += 1
+        x1 = f(x0)
+        if abs(x1 - x0) < tol:
+            return x1, count
+        x0 = x1
+    
+    return x1, count
+
+def fixedpt_vector(f, x0, tol, Nmax):
+    ''' 
+    f = function for which fixed point is sought
+    x0 = initial guess
+    Nmax = max number of iterations
+    tol = stopping tolerance
+    '''
+    count = 0
+    approximations = []  # List to store the approximations
+    while (count < Nmax):
+        count += 1
+        x1 = f(x0)
+        approximations.append(x1)  # Append the new approximation to the list
+        if abs(x1 - x0) < tol:
+            return np.array(approximations)  # Convert the list to a NumPy array before returning
+        x0 = x1
+    
+    return np.array(approximations)  # Convert the list to a NumPy array before returning
+
+# Test the original subroutine
+f1 = lambda x: 1 + 0.5 * np.sin(x)
+x0 = 0.0
+Nmax = 100
+tol = 1e-6
+xstar, ier = fixedpt(f1, x0, tol, Nmax)
+print('the approximate fixed point is:', xstar)
+print('f1(xstar):', f1(xstar))
+print('Error message reads:', ier)
+
+# Test the modified subroutine
+f_a = lambda x: x * (1 + ((7 - x**5) / x**2))**3
+tol = 1e-10
+Nmax = 100
+x0 = 1
+approximations = fixedpt_vector(f_a, x0, tol, Nmax)
+print('Approximations of the fixed point at all iterations:', approximations)

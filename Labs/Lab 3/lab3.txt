@@ -87,7 +87,6 @@ behaviors are expected. for parts b and d, the bisection method failed
 to find a root within the specified time interval. 
 not really successful or the desired accuracy was achieved, therefore.
 
-
 Exercise 3
 
 a)
